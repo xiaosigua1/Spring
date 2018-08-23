@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--01.配置目标对象-->
+    <bean id="userService" class="com.xdf.service.impl.UserServiceImpl"/>
+
+    <!--02.配置前置通知-->
+    <bean id="before" class="com.xdf.service.advices.BeforeAdvice"/>
+    <!--配置后置通知-->
+    <bean id="after" class="com.xdf.service.advices.AfterAdvice"/>
+    <!--配置环绕通知-->
+    <bean id="around" class="com.xdf.service.advices.AroundAdvice"/>
+
+
+    <!--配置异常目标对象-->
+    <bean id="userException" class="com.xdf.service.exceptionPackage.UserServiceImpl"/>
+    <!--配置异常通知-->
+    <bean id="myException" class="com.xdf.service.advices.ExceptionAdvice"/>
+
+
+
+    <!--03.通过配置代理工厂bean，生成代理类，来把通知织入到目标对象
+       问题：只能管理  通知！
+          01.只能将切面织入到目标类的所有方法中！
+          02.只能配置一个 目标对象
+    -->
+    <bean id="userProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--注册目标对象 -->
+        <property name="targetName" value="userService"/>
+        <!--注册通知-->
+        <!-- <property name="interceptorNames" value="before,after">-->
+        <property name="interceptorNames">
+            <array>
+              <value>before</value>  <!--  前置通知-->
+                <value>after</value>  <!--  后置通知-->
+                <value>around</value>  <!--  环绕通知-->
+            </array>
+        </property>
+    </bean>
+
+    <!--现在是一个service对应一个ProxyFactoryBean  这样不可以！-->
+    <bean id="exceptionProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--注册目标对象 -->
+        <property name="targetName" value="userException"/>
+        <!--注册通知-->
+        <property name="interceptorNames">
+            <array>
+                <value>myException</value> <!--异常通知-->
+            </array>
+        </property>
+        <!--代理类的优化  是否使用cglib动态代理-->
+        <property name="optimize" value="true"/>
+       <!-- <property name="proxyTargetClass" value="true"/>
+       proxyTargetClass：默认是false  ，默认执行jdk动态代理！
+                         设置成true，强制执行cglib！
+       optimize ：  代理类的优化
+                  有接口就是用jdk，没有接口使用cglib动态代理
+       -->
+    </bean>
+
+
+
+    <!--
+      我们的动态代理 （在程序运行期间，动态生成的代理类） 分为两种方式：
+         01.jdk     只能应用于实现接口的情况
+         02.cglib   应用于实现接口和类的情况
+
+         如果我们是接口的情况，使用jdk效率高！
+         如果我们是类的情况，必须使用cglib！
+
+        问题？
+           程序  spring容器怎么知道我们是用的类还是接口？？
+          public class ProxyConfig implements Serializable
+
+            private boolean proxyTargetClass = false;
+            private boolean optimize = false;
+
+            spring底层默认使用cglib！ 现在我们的项目中使用的是接口！
+            用spring默认的性能不高！
+
+           proxyTargetClass 和optimize都是用来设置 我们使用的代理模式是jdk还是cglib！
+
+           @Override
+    public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
+      //  根据我们配置文件中 proxyTargetClass 和 optimize的配置
+        if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
+            Class<?> targetClass = config.getTargetClass();
+            if (targetClass == null) {
+                throw new AopConfigException("TargetSource cannot determine target class: " +
+                        "Either an interface or a target is required for proxy creation.");
+            }
+           //根据目标对象返回对应的动态代理
+            if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) {
+                return new JdkDynamicAopProxy(config);
+            }
+            return new ObjenesisCglibAopProxy(config);
+        }
+        else {
+            return new JdkDynamicAopProxy(config);
+        }
+    }
+
+
+
+    -->
+
+
+
+</beans>

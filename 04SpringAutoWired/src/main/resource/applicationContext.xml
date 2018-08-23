@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- autowire  自动装配对象
+   01.byName
+      spring会根据实体类中的属性名，去找xml文件中id为属性名的bean进行装配！
+   02.byType
+       spring会根据实体类中的属性类型，去找xml文件中找一个class是 属性类型的类进行装配,
+       如果有多个 会报错！
+ -->
+
+
+    <!--配置的主人bean-->
+    <bean id="person" class="com.xdf.Person" autowire="byName">
+        <property name="age" value="20"/>
+        <property name="name" value="xiaohei"/>
+          <!--直接引用  autowire属性没有效果  <property name="dog" ref="dog"/>-->
+    </bean>
+
+    <!--配置 宠物狗bean-->
+    <bean id="dog" class="com.xdf.Dog">
+         <property name="name"  value="哈士奇"/>
+    </bean>
+    <!--配置 小狗bean-->
+    <bean id="smallDog" class="com.xdf.SmallDog">
+        <!--SmallDog中没有任何属性 ，但是继承父类的name-->
+         <property name="name"  value="小狗哈士奇"/>
+    </bean>
+
+    <!--主人的第二个宠物 猫咪-->
+    <bean id="cat" class="com.xdf.Cat">
+        <property name="name"  value="机器锚"/>
+    </bean>
+</beans>

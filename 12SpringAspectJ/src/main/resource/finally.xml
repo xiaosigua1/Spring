@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+         <!--01.配置目标对象-->
+      <bean  id="userService" class="com.xdf.service.impl.UserServiceImpl"/>
+         <!--02.配置切面-->
+      <bean id="myAspect" class="com.xdf.service.xml.MyAspectJ"/>
+
+      <!--aspectJ的最终实现方式-->
+       <aop:config>
+           <!--切入点表达式的设置  根据需求设置多个-->
+           <aop:pointcut id="exeEat" expression="execution(* *..UserServiceImpl.eat(..))"/>
+           <aop:aspect ref="myAspect"><!--指定我们的切面位置-->
+                  <aop:before method="before(org.aspectj.lang.JoinPoint)" pointcut-ref="exeEat"/>
+                  <aop:after-returning method="afterReturning(java.lang.String)" returning="result" pointcut-ref="exeEat"/>
+                  <aop:around method="around"  pointcut-ref="exeEat"/>
+                  <aop:after-throwing method="afterThrowingTwo(java.lang.Exception)"  throwing="ex" pointcut-ref="exeEat"/>
+                  <aop:after method="after" pointcut-ref="exeEat"/>
+           </aop:aspect>
+       </aop:config>
+
+</beans>

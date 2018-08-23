@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <!--01.配置目标对象-->
+     <bean  id="userService" class="com.xdf.service.impl.UserServiceImpl"/>
+
+      <!--02.配置通知 advice-->
+     <bean  id="before" class="com.xdf.service.advices.BeforeAdvice"/>
+
+     <!--配置顾问   实现了 在指定的主业务方法中 增强-->
+    <bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <!--通知就是顾问中的一个属性-->
+          <property name="advice" ref="before"/>
+          <!--配置切入点   这里的切入点指的是 方法的全限定方法名
+          com.xdf.service.UserServiceImpl.eat
+          com.xdf.service.UserServiceImpl.sleep-->
+         <!-- <property name="pattern" value=".*eat.*"/>  匹配单个方法-->
+        <!-- <property name="patterns" value=".*eat.*,.*sleep.*"/>   匹配多个方法-->
+       <!-- <property name="pattern" value=".*mpl.*"/>匹配多个方法-->
+        <property name="pattern" value=".*eat.*|.*sleep.*"/>
+    </bean>
+
+
+    <!--03.生成代理对象-->
+    <bean id="userProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target" ref="userService"/><!--注册目标对象-->
+         <!--注册顾问-->
+         <property name="interceptorNames" value="myAdvisor"/>
+    </bean>
+
+
+
+    <!--  遗留的问题：
+      如果有多个目标对象，我们需要设置多个ProxyFactoryBean-->
+        </beans>

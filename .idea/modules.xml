@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/01SpringBase/01SpringBase.iml" filepath="$PROJECT_DIR$/01SpringBase/01SpringBase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02SpringCreateObject/02SpringCreateObject.iml" filepath="$PROJECT_DIR$/02SpringCreateObject/02SpringCreateObject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03SpringProperties/03SpringProperties.iml" filepath="$PROJECT_DIR$/03SpringProperties/03SpringProperties.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04SpringAutoWired/04SpringAutoWired.iml" filepath="$PROJECT_DIR$/04SpringAutoWired/04SpringAutoWired.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05SpringSPEL/05SpringSPEL.iml" filepath="$PROJECT_DIR$/05SpringSPEL/05SpringSPEL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06SpringConfiguration/06SpringConfiguration.iml" filepath="$PROJECT_DIR$/06SpringConfiguration/06SpringConfiguration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/07SpringJdbc/07SpringJdbc.iml" filepath="$PROJECT_DIR$/07SpringJdbc/07SpringJdbc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/08SpringAOPProxy/08SpringAOPProxy.iml" filepath="$PROJECT_DIR$/08SpringAOPProxy/08SpringAOPProxy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/11SpringAopAutoProxy/11SpringAopAutoProxy.iml" filepath="$PROJECT_DIR$/11SpringAopAutoProxy/11SpringAopAutoProxy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10SpringAopAdvisor/11SpringAutoProxy.iml" filepath="$PROJECT_DIR$/10SpringAopAdvisor/11SpringAutoProxy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/12SpringAspectJ/12SpringAspectJ.iml" filepath="$PROJECT_DIR$/12SpringAspectJ/12SpringAspectJ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/13SpringTx/13SpringTx.iml" filepath="$PROJECT_DIR$/13SpringTx/13SpringTx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring.iml" filepath="$PROJECT_DIR$/Spring.iml" />
+    </modules>
+  </component>
+</project>

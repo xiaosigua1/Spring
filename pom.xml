@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.xdf</groupId>
+  <artifactId>Spring</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>01SpringBase</module>
+      <module>02SpringCreateObject</module>
+      <module>03SpringProperties</module>
+      <module>04SpringAutoWired</module>
+      <module>05SpringSPEL</module>
+      <module>06SpringConfiguration</module>
+    <module>07SpringJdbc</module>
+      <module>08SpringAOPProxy</module>
+      <module>09SpringAop</module>
+      <module>10SpringAopAdvisor</module>
+      <module>11SpringAopAutoProxy</module>
+      <module>12SpringAspectJ</module>
+      <module>13SpringTx</module>
+  </modules>
+  <packaging>pom</packaging>
+
+  <name>Spring</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

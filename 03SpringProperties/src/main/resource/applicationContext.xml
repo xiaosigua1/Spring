@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  配置年级对应的bean-->
+      <bean  id="grade" class="com.xdf.bean.Grade">
+          <!--01.设值注入 (推荐使用，便于阅读)  在对应的类中必须有set，因为底层执行反射机制查询类中对应的setXxx(DI)    -->
+          <property name="gradeId" value="1"/>
+          <property name="name" value="一年级"/>
+      </bean>
+
+    <!--  配置学生对应的bean   02.p命名空间赋值
+    <bean id="student" class="com.xdf.bean.Student"
+          p:age="18" p:name="小黑" p:grade-ref="grade"/>-->
+
+    <!--03.通过构造方法给属性赋值 前提是 必须有对应的构造方法  不需要set
+    <bean id="student"  class="com.xdf.bean.Student">
+        001:使用参数的下标
+        <constructor-arg index="0" value="xiaohei"/>
+        <constructor-arg index="1" value="19"/>
+        <constructor-arg index="2" ref="grade"/>
+        002:使用参数的名称
+        <constructor-arg name="name" value="xiaohei"/>
+        <constructor-arg name="age" value="19"/>
+        <constructor-arg name="grade" ref="grade"/>
+        003:使用参数的默认顺序
+        <constructor-arg  value="xiaohei"/>
+        <constructor-arg  value="19"/>
+        <constructor-arg  ref="grade"/>
+    </bean>-->
+
+    <!--04.通过c命名空间（构造方法）给属性赋值 前提是 必须有对应的构造方法-->
+    <bean id="student"  class="com.xdf.bean.Student"
+     c:age="18" c:name="xiaobai" c:grade-ref="grade"/>
+
+
+
+
+    <!-- spring  获取并给各种类型的属性赋值-->
+    <bean id="propertiesBean"  class="com.xdf.bean.PropertiesBean">
+        <property name="name"  value="小黑"/>
+        <property name="age"  value="50"/>
+        <property name="student"  ref="student"/>
+        <property name="list">
+            <list>
+                 <value>小黑</value>
+                 <value>小红</value>
+                 <value>小白</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                 <value>小黑</value>
+                 <value>小红</value>
+                 <value>小白</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="键1" value="值1"/>
+                <entry key="键2" value="值2"/>
+                <entry key="键3" value="值3"/>
+            </map>
+        </property>
+        <property name="properties">
+           <props>
+               <prop key="url">xxxx</prop>
+               <prop key="name">xxxx</prop>
+               <prop key="password">xxxx</prop>
+           </props>
+        </property>
+        <property name="names">
+           <array>
+               <value>小黑</value>
+               <value>小红</value>
+               <value>小白</value>
+           </array>
+        </property>
+    </bean>
+
+
+</beans>

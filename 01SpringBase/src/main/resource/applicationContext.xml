@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--接收程序给我们的bean对象
+    id就是我们的一个标识
+    class是对应的实现类
+    -->
+    <bean id="studentDaoImpl"  class="com.xdf.dao.impl.StudentDaoImpl"></bean>
+
+    <!--配置service层的实例对象-->
+    <bean id="studentServiceImpl" class="com.xdf.service.impl.StudentServiceImpl">
+         <property name="dao" ref="studentDaoImpl"></property>  <!--设值注入-->
+    </bean>
+
+    <!--配置我们的student对象   lazy-init="true"  按需加载-->
+    <bean id="student" class="com.xdf.dao.impl.Student" lazy-init="true">
+        <property name="age" value="20"/>
+        <property name="name" value="小黑"/>
+    </bean>
+
+    <!-- 在spring的核心配置文件中  所有的bean默认都是单例模式
+       scope="singleton"  默认
+       scope="prototype"  原型
+       -->
+    <bean id="student2" class="com.xdf.dao.impl.Student" scope="prototype">
+        <property name="age" value="40"/>
+        <property name="name" value="小黑2"/>
+    </bean>
+
+</beans>

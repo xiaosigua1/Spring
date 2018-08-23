@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <!--配置我们的Dog类  spring 框架在底层 01.  通过反射的机制  执行了我们的构造方法
+      <bean id="dog" class="com.xdf.dao.impl.Dog"></bean>
+   -->
+
+   <!--02.通过静态工厂 来创建我们对象的实例
+    工厂的本身构造不会执行 因为我们的方法是静态的 ！类只会被加载，不会被实例化！
+    getDog必须是静态的
+     <bean id="dog" class="com.xdf.dao.util.AnimalFactory" factory-method="getDog"></bean>
+    -->
+
+   <!--03.动态工厂创建 对象的实例
+   <bean id="factory" class="com.xdf.dao.util.AnimalFactory"></bean>实例化工厂-->
+   <!-- 调用哪个工厂里的哪个方法  来创建对象  对象的id是dog
+   <bean id="dog" factory-bean="factory" factory-method="getDog2"/>-->
+
+   <!--
+     设置bean的生命始末
+   -->
+   <bean id="dog" class="com.xdf.dao.impl.Dog" init-method="init" destroy-method="destroy"/>
+
+</beans>

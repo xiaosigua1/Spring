@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+         <!--01.配置目标对象-->
+     <bean  id="userService1" class="com.xdf.service.impl.UserServiceImpl"/>
+        <!--02.配置目标对象-->
+     <bean  id="userService2" class="com.xdf.service.impl.UserServiceImpl"/>
+
+      <!--02.配置通知 advice-->
+     <bean  id="before" class="com.xdf.service.advices.BeforeAdvice"/>
+
+     <!--配置顾问   实现了 在指定的主业务方法中 增强-->
+     <bean id="myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <!--通知就是顾问中的一个属性-->
+          <property name="advice" ref="before"/>
+          <!--配置切入点   这里的切入点指的是 方法的简写!-->
+         <property name="mappedName" value="eat"/> <!--指定一个切入点-->
+     </bean>
+
+
+    <!--03.配置自动的代理生成器 底层其实就是执行了bean后处理器-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <!--
+    自动的代理生成器的弊端：
+      容器中所有的bean都必须实现两个方法！不能针对性的设置了！
+    -->
+
+</beans>

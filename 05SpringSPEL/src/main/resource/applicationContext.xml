@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student1" class="com.xdf.bean.Student">
+       <property name="name" value="小黑"/>
+       <property name="age" value="10"/>
+    </bean>
+
+    <bean id="student2" class="com.xdf.bean.Student">
+       <property name="name" value="#{student1.name}"/>
+      <!-- <property name="age" value="#{student1.age>30?20:student1.age}"/>-->
+      <!--  <property name="age" value="#{student1.getAge()}"/>-->
+       <property name="age" value="#{T(java.lang.Math).random()*10}"/>
+    </bean>
+
+<!--  注意点：
+     如果spel中想使用某些类的相关信息！
+     一定要指定T（Type）====》java.lang.Class类的实例
+-->
+
+
+</beans>
